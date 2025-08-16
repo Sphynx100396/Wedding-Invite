@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spencer & Eloisa — Wedding Invitation</title>
+  <meta name="description" content="You're invited! Join us to celebrate our wedding." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f5f0e8;
+      --card: #fffaf3;
+      --ink: #3a2f2a;
+      --muted: #7b6f67;
+      --brand-light: #d2b48c;
+      --brand: #a1744a;
+      --brand-dark: #6b4226;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--ink);
+      background:
+        url('https://www.transparenttextures.com/patterns/coffee-beans.png'),
+        linear-gradient(180deg, #f5f0e8, #e9dfd4);
+      background-repeat: repeat;
+      background-size: auto, cover;
+    }
+    a{color:var(--brand);text-decoration:none}
+    a:hover{color:var(--brand-dark);text-decoration:underline}
+
+    .container{max-width:1000px;margin:0 auto;padding:24px}
+    header.hero{
+      display:grid;
+      gap:18px;
+      place-items:center;
+      padding:72px 20px 56px;
+      text-align:center;
+      background:rgba(255,255,255,0.7);
+      border-bottom:1px solid rgba(0,0,0,.06);
+      border-radius:0 0 20px 20px;
+    }
+    .badge{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:var(--brand-light);
+      color:var(--brand-dark);
+      font-weight:600;
+      letter-spacing:.04em;
+    }
+    .names{
+      font-family:"Playfair Display", serif;
+      font-size:clamp(36px,7vw,64px);
+      line-height:1.05;
+      margin:8px 0 4px;
+      color:var(--ink)
+    }
+    .names .amp{
+      letter-spacing:.04em;
+      background: linear-gradient(90deg, var(--brand-light), var(--brand), var(--brand-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle{color:var(--muted);font-size:clamp(14px,2.5vw,16px)}
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:20px;
+      padding:28px;
+      box-shadow:0 10px 30px rgba(0,0,0,.05);
+    }
+
+    section{padding:42px 0}
+    h2{font-family:"Playfair Display",serif;font-size:28px;margin:0 0 14px;color:var(--ink)}
+    p{margin:0 0 10px;color:#3b3838}
+    .grid{display:grid;gap:20px}
+    @media (min-width: 800px){
+      .grid.two{grid-template-columns:1.1fr .9fr}
+    }
+
+    .details dl{display:grid;grid-template-columns:150px 1fr;gap:10px 16px;margin:0}
+    .details dt{color:var(--muted)}
+    .details dd{margin:0;font-weight:600}
+
+    .details ul{margin:0;padding-left:18px}
+    .details li{margin-bottom:16px}
+
+    /* Dress code swatches below text */
+    .dress-code {
+      list-style: none;
+      padding-left: 0;
+    }
+    .dress-code li .swatch {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin-right: 8px;
+      margin-top: 6px;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+    .swatch.beige { background-color: #f5f0e8; }
+    .swatch.tan { background-color: #d2b48c; }
+    .swatch.brown { background-color: #6b4226; }
+
+    .countdown{display:flex;gap:12px;justify-content:center;margin-top:10px}
+    .timebox{
+      min-width:68px;
+      padding:10px;
+      border-radius:14px;
+      border:1px solid rgba(0,0,0,.08);
+      background:#fff;
+      text-align:center
+    }
+    .timebox .num{font-weight:700;font-size:22px}
+    .timebox .lbl{font-size:12px;color:var(--muted)}
+
+    .map iframe{width:100%;height:320px;border:0;border-radius:16px}
+
+    footer{padding:36px 0 60px;color:var(--muted);text-align:center}
+
+    /* Animation styles */
+    .animate-fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+    .animate-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <span class="badge">You're Invited</span>
+    <h1 class="names">Spencer <span class="amp">&</span> Eloisa</h1>
+    <p class="subtitle">Invite you to celebrate their wedding</p>
+
+    <div class="countdown">
+      <div class="timebox"><div class="num" id="cd-days">00</div><div class="lbl">Days</div></div>
+      <div class="timebox"><div class="num" id="cd-hours">00</div><div class="lbl">Hours</div></div>
+      <div class="timebox"><div class="num" id="cd-mins">00</div><div class="lbl">Minutes</div></div>
+      <div class="timebox"><div class="num" id="cd-secs">00</div><div class="lbl">Seconds</div></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid two">
+      <div class="card details">
+        <h2>Event Details</h2>
+        <dl>
+          <dt>Date</dt><dd><time id="eventDateText" datetime="2025-12-18T14:00:00">Thursday, Dec 18, 2025 • 2:00 PM</time></dd>
+          <dt>Ceremony Venue</dt><dd>Sacred Heart Parish Church</dd>
+          <dt>Address</dt><dd>Lizares St, Bacolod City, Negros Occidental<br><a href="https://www.google.com/maps?q=Sacred+Heart+Parish+Church+Bacolod" target="_blank">View on Google Maps</a></dd>
+          <dt>Reception Venue</dt><dd>Planta Hotel and Residences<br><a href="https://www.google.com/maps?q=Planta+Hotel+and+Residences+Bacolod" target="_blank">View on Google Maps</a></dd>
+          <dt>Dress Code</dt>
+          <dd>
+            <ul class="dress-code">
+              <li>
+                <strong>Principal Sponsors:</strong><br>
+                Formal in these following colors<br>
+                <span class="swatch beige"></span>
+                <span class="swatch tan"></span>
+                <span class="swatch brown"></span>
+              </li>
+              <li>
+                <strong>Guests:</strong><br>
+                Casual in these following colors<br>
+                <span class="swatch beige"></span>
+                <span class="swatch tan"></span>
+                <span class="swatch brown"></span>
+              </li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+      <div class="card map">
+        <h2>Directions</h2>
+        <iframe loading="lazy" src="https://www.google.com/maps?q=Sacred%20Heart%20Parish%20Church&output=embed"></iframe>
+      </div>
+    </section>
+
+    <section>
+      <div class="card rsvp-section animate-fade">
+        <h2>RSVP</h2>
+        <div style="display: flex; justify-content: center;">
+          <iframe 
+            src="https://docs.google.com/forms/d/e/1FAIpQLSe4_ZqqPSI5xiQJkFVIcHdZT8FETL7RuWLsteizXQ5b-oSwhg/viewform?embedded=true" 
+            width="640" height="812" frameborder="0" marginheight="0" marginwidth="0" 
+            style="max-width: 100%; border: none;">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container footnote animate-fade" 
+       style="text-align:center; margin-top:30px; font-size:15px; color:#6a5d54; font-family:'Playfair Display', serif; font-style:italic; line-height:1.6;">
+        <hr style="border: none; border-top: 1px dashed rgba(0,0,0,0.25); width: 60%; margin: 20px auto;">
+        <p>
+          Your presence and prayer are all that we request<br>
+          for all that we have, we've been truly blessed.<br>
+          But if you desire to give nonetheless,<br>
+          a monetary gift is all we suggest.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>With love, Spencer & Eloisa • <span id="year"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    const WEDDING_ISO = '2025-12-18T14:00:00';
+    const target = new Date(WEDDING_ISO).getTime();
+    const pad = (n)=> String(n).padStart(2,'0');
+    function tick(){
+      const now = Date.now();
+      let diff = Math.max(0, target - now);
+      const days = Math.floor(diff / (24*60*60*1000)); diff -= days*24*60*60*1000;
+      const hours = Math.floor(diff / (60*60*1000)); diff -= hours*60*60*1000;
+      const mins = Math.floor(diff / (60*1000)); diff -= mins*60*1000;
+      const secs = Math.floor(diff / 1000);
+      document.getElementById('cd-days').textContent = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent = pad(mins);
+      document.getElementById('cd-secs').textContent = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animation on scroll
+    function animateOnScroll(selector) {
+      const elements = document.querySelectorAll(selector);
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      elements.forEach(el => observer.observe(el));
+    }
+    animateOnScroll('.animate-fade');
+  </script>
+</body>
+</html>
